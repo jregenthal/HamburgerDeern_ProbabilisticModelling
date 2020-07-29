@@ -1,0 +1,13 @@
+data {
+  C <- 10000
+  for (i in 1:N) {
+    ones[i] <- 1
+  }
+} model {
+   for (i in 1:N) {
+      spy[i] <- (((1-omega)*lambda*((1-omega)*lambda + omega*y[i])^(y[i]-1)*exp(-1*((1-omega)*lambda + omega*y[i]))) / exp(logfact(y[i]))) / C
+      ones[i] ~ dbern(spy[i])
+    }
+  omega ~ dbeta(1,1)
+  lambda ~ dgamma(1,1)
+}
